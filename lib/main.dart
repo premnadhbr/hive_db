@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_db/app/data/hive.dart';
 import 'package:hive_db/app/view/home.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
@@ -11,7 +12,8 @@ void main() async {
   Directory directory = await getApplicationDocumentsDirectory();
 
   Hive.init(directory.path);
-  await Hive.openBox('friend');
+  Hive.registerAdapter(PersonAdapter());
+  await Hive.openBox<Person>('friend');
 
   runApp(const MyApp());
 }
